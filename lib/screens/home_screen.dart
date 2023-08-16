@@ -13,18 +13,24 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/signup');
-              },
-              child: const Text('Cadastrar usuários'),
+            SizedBox(
+              width: 160,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/signup');
+                },
+                child: const Text('Cadastrar usuários'),
+              ),
             ),
             const SizedBox(width: 10),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, '/read_users');
-              },
-              child: const Text('Ver usuários'),
+            SizedBox(
+              width: 160,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, '/read_users');
+                },
+                child: const Text('Ver usuários'),
+              ),
             ),
           ],
         ),

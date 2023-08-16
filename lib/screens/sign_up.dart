@@ -10,7 +10,7 @@ class SignUp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text('Cadastrar usuário')),
+        title: const Text('Cadastrar usuário'),
       ),
       body:  const SingleChildScrollView(
         child: UserFieldsForm(),

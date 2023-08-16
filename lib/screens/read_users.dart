@@ -41,7 +41,7 @@ class _ReadUsersState extends State<ReadUsers> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Users'),
+        title: const Text('Usuários'),
       ),
       body: Column(
         children: [

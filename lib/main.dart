@@ -21,7 +21,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Home Screen',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.deepPurple,
       ),
       initialRoute: '/',
       routes: {
