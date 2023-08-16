@@ -1,4 +1,6 @@
-import 'package:condominio/user_form.dart';
+import 'package:condominio/screens/home_screen.dart';
+import 'package:condominio/screens/read_users.dart';
+import 'package:condominio/screens/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -16,15 +18,20 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Center(child: Text('Cadastrar usuário')),
-        ),
-        body:  const SingleChildScrollView(
-          child: UserFieldsForm(),
-        ),
+    return MaterialApp(
+      title: 'Flutter Home Screen',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const HomeScreen(),
+        '/signup': (context) => const SignUp(),
+        '/read_users': (context) => const ReadUsers(),
+      },
     );
   }
 }
+
+
+
