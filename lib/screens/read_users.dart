@@ -9,9 +9,11 @@ class ReadUsers extends StatefulWidget {
 }
 
 class _ReadUsersState extends State<ReadUsers> {
+  
   late CollectionReference<Map<String, dynamic>> usersCollection;
   late QuerySnapshot<Map<String, dynamic>> usersSnapshot;
   List<DocumentSnapshot<Map<String, dynamic>>> filteredUsers = [];
+
 
   @override
   void initState() {

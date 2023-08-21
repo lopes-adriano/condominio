@@ -12,9 +12,7 @@ class SignUp extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Cadastrar usuário'),
       ),
-      body:  const SingleChildScrollView(
-        child: UserFieldsForm(),
-      ),
+      body:  const UserFieldsForm(),
     );
   }
 }
