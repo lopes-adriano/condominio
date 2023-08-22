@@ -20,6 +20,10 @@ class _UserFieldsFormState extends State<UserFieldsForm> {
   String email = '';
   String? apartamento;
   bool formSubmitted = false;
+  bool cpfUnique = false;
+  bool emailUnique = false;
+  String textoResultado = '';
+  Color corResultado = Colors.white;
 
   final maskCpf = MaskTextInputFormatter(
       mask: '###.###.###-##', filter: {"#": RegExp(r'[0-9]')});
@@ -36,21 +40,46 @@ class _UserFieldsFormState extends State<UserFieldsForm> {
       'cpf': cpf,
       'email': email,
       'tipoUsuario': userType,
-      if (apartamento != null)
-      'apartamento': apartamento,
+      if (apartamento != null) 'apartamento': apartamento,
     };
-    await docUser.set(data);
 
-    setState(() {
-      formSubmitted = true;
-    });
-
-    Timer(const Duration(seconds: 3), () {
+    cpfUnique = await isFieldUnique('usuarios', 'cpf', cpf);
+    emailUnique = await isFieldUnique('usuarios', 'email', email);
+    if (cpfUnique == true && emailUnique == true) {
+      await docUser.set(data);
       setState(() {
-        formSubmitted = false;
+        textoResultado = 'Usuário cadastrado com sucesso!';
+        corResultado = Colors.green;
+        formSubmitted = true;
+        Timer(const Duration(seconds: 3), () {
+          setState(() {
+            formSubmitted = false;
+          });
+          _formKey.currentState!.reset();
+        });
       });
-      _formKey.currentState!.reset();
-    });
+    } else {
+      setState(() {
+        textoResultado = 'CPF ou e-mail já cadastrados';
+        corResultado = Colors.red;
+        formSubmitted = true;
+        Timer(const Duration(seconds: 3), () {
+          setState(() {
+            formSubmitted = false;
+          });
+        });
+      });
+    }
+  }
+
+  Future<bool> isFieldUnique(
+      String collection, String field, dynamic value) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+        .collection(collection)
+        .where(field, isEqualTo: value)
+        .get();
+
+    return querySnapshot.docs.isEmpty;
   }
 
   @override
@@ -73,6 +102,7 @@ class _UserFieldsFormState extends State<UserFieldsForm> {
               },
             ),
             TextFormField(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: const InputDecoration(labelText: 'CPF'),
               inputFormatters: [maskCpf],
               validator: (value) {
@@ -82,6 +112,7 @@ class _UserFieldsFormState extends State<UserFieldsForm> {
                 if (UtilBrasilFields.isCPFValido(value) == false) {
                   return 'Por favor, digite um CPF válido';
                 }
+
                 return null;
               },
               onSaved: (value) {
@@ -89,6 +120,7 @@ class _UserFieldsFormState extends State<UserFieldsForm> {
               },
             ),
             TextFormField(
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: const InputDecoration(labelText: 'Email'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -105,6 +137,7 @@ class _UserFieldsFormState extends State<UserFieldsForm> {
             ),
             DropdownButtonFormField<String>(
               value: userType,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: const InputDecoration(labelText: 'Tipo de usuário'),
               items: const [
                 DropdownMenuItem(
@@ -130,6 +163,7 @@ class _UserFieldsFormState extends State<UserFieldsForm> {
             ),
             if (userType == 'morador')
               TextFormField(
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: const InputDecoration(labelText: 'Apartamento'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -143,27 +177,36 @@ class _UserFieldsFormState extends State<UserFieldsForm> {
               ),
             const SizedBox(height: 20),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
+                cpfUnique = await isFieldUnique('usuarios', 'cpf', cpf);
+                emailUnique = await isFieldUnique('usuarios', 'email', email);
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
+
                   createUser(
                       nome: nome,
                       cpf: cpf,
                       email: email,
-                      apartamento: apartamento, 
+                      apartamento: apartamento,
                       userType: userType);
                 }
               },
               child: const Text('Cadastrar'),
             ),
-            if (formSubmitted)
-              const Text(
-                'Cadastro realizado!',
-                style: TextStyle(
-                  color: Colors.green,
-                  fontWeight: FontWeight.bold,
+            Visibility(
+              visible: formSubmitted,
+              child:  Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  textoResultado,
+                  style: TextStyle(
+                    color: corResultado,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18
+                  ),
                 ),
               ),
+            ),
           ],
         ),
       ),

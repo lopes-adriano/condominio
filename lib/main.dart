@@ -1,3 +1,4 @@
+import 'package:condominio/screens/carros_morador.dart';
 import 'package:condominio/screens/home_screen.dart';
 import 'package:condominio/screens/read_users.dart';
 import 'package:condominio/screens/sign_up.dart';
@@ -28,10 +29,10 @@ class MainApp extends StatelessWidget {
         '/': (context) => const HomeScreen(),
         '/signup': (context) => const SignUp(),
         '/read_users': (context) => const ReadUsers(),
+        '/carros_morador': (context) => const CarrosMoradorScreen(
+              id: '6Ox9RRJiSfPgJyqalV2F',
+            ),
       },
     );
   }
 }
-
-
-
