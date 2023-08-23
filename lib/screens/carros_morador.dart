@@ -66,6 +66,7 @@ class CarrosMoradorScreen extends StatelessWidget {
               return AlertDialog(
                 title: const Text('Adicionar Carro'),
                 content: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     TextFormField(
                       onChanged: (value) {

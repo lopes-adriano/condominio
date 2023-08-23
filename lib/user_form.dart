@@ -103,6 +103,7 @@ class _UserFieldsFormState extends State<UserFieldsForm> {
             ),
             TextFormField(
               decoration: const InputDecoration(labelText: 'CPF'),
+              keyboardType: TextInputType.number,
               inputFormatters: [maskCpf],
               validator: (value) {
                 if (value == null || value.isEmpty) {
