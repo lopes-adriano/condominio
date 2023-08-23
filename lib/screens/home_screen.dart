@@ -35,7 +35,7 @@ class RedirectButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 160,
+      width: 200,
       child: ElevatedButton(
         onPressed: () {
           Navigator.pushNamed(context, route);

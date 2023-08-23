@@ -102,7 +102,6 @@ class _UserFieldsFormState extends State<UserFieldsForm> {
               },
             ),
             TextFormField(
-              autovalidateMode: AutovalidateMode.onUserInteraction,
               decoration: const InputDecoration(labelText: 'CPF'),
               inputFormatters: [maskCpf],
               validator: (value) {
@@ -120,7 +119,7 @@ class _UserFieldsFormState extends State<UserFieldsForm> {
               },
             ),
             TextFormField(
-              autovalidateMode: AutovalidateMode.onUserInteraction,
+
               decoration: const InputDecoration(labelText: 'Email'),
               validator: (value) {
                 if (value == null || value.isEmpty) {
@@ -163,7 +162,6 @@ class _UserFieldsFormState extends State<UserFieldsForm> {
             ),
             if (userType == 'morador')
               TextFormField(
-                autovalidateMode: AutovalidateMode.onUserInteraction,
                 decoration: const InputDecoration(labelText: 'Apartamento'),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
