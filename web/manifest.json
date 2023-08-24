@@ -1,6 +1,6 @@
 {
-    "name": "condominio",
-    "short_name": "condominio",
+    "name": "visitantes_condominio",
+    "short_name": "visitantes_condominio",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
