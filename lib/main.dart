@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:visitantes_condominio/routes/app_routes.dart';
-import 'package:visitantes_condominio/views/meus_visitantes_list.dart';
-import 'package:visitantes_condominio/views/visitante_form.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+import 'package:veiculos/routes/app_routes.dart';
+import 'package:veiculos/views/meus_veiculos_list.dart';
+import 'package:veiculos/views/veiculo_form.dart';
 
-Future main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+void main() {
   runApp(const MyApp());
 }
 
@@ -26,8 +20,8 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       routes: {
-        AppRoutes.home: (_) => const MeusVisitantesList(),
-        AppRoutes.visitanteForm: (_) => VisitanteForm()
+        AppRoutes.home: (_) => const MeusVeiculosList(),
+        AppRoutes.veiculoForm: (_) => VeiculoForm()
       },
     );
   }
