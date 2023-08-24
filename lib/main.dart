@@ -1,8 +1,7 @@
-import 'package:condominio/screens/carros_morador.dart';
-import 'package:condominio/screens/home_screen.dart';
-import 'package:condominio/screens/read_users.dart';
-import 'package:condominio/screens/sign_up.dart';
 import 'package:flutter/material.dart';
+import 'package:visitantes_condominio/routes/app_routes.dart';
+import 'package:visitantes_condominio/views/meus_visitantes_list.dart';
+import 'package:visitantes_condominio/views/visitante_form.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -11,27 +10,24 @@ Future main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MainApp());
+  runApp(const MyApp());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Home Screen',
+      title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
       ),
-      initialRoute: '/',
       routes: {
-        '/': (context) => const HomeScreen(),
-        '/signup': (context) => const SignUp(),
-        '/read_users': (context) => const ReadUsers(),
-        '/carros_morador': (context) => const CarrosMoradorScreen(
-              id: '6Ox9RRJiSfPgJyqalV2F',
-            ),
+        AppRoutes.home: (_) => const MeusVisitantesList(),
+        AppRoutes.visitanteForm: (_) => VisitanteForm()
       },
     );
   }
