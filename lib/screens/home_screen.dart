@@ -16,6 +16,7 @@ class HomeScreen extends StatelessWidget {
             RedirectButton(text: 'Cadastrar usuários', route: '/signup'),
             RedirectButton(text: 'Buscar usuários', route: '/read_users'),
             RedirectButton(text: 'Gerenciar carros', route: '/carros_morador'),
+            RedirectButton(text: 'Visitantes', route: '/visitantes'),
           ],
         ),
       ),

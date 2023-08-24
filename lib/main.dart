@@ -2,6 +2,7 @@ import 'package:condominio/screens/carros_morador.dart';
 import 'package:condominio/screens/home_screen.dart';
 import 'package:condominio/screens/read_users.dart';
 import 'package:condominio/screens/sign_up.dart';
+import 'package:condominio/screens/visitantes.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -32,6 +33,9 @@ class MainApp extends StatelessWidget {
         '/carros_morador': (context) => const CarrosMoradorScreen(
               id: '6Ox9RRJiSfPgJyqalV2F',
             ),
+        '/visitantes': (context) => const VisitantesScreen(
+              id: '6Ox9RRJiSfPgJyqalV2F',
+        )
       },
     );
   }

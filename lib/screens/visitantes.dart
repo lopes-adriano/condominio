@@ -2,54 +2,54 @@ import 'package:brasil_fields/brasil_fields.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class CarrosMoradorScreen extends StatelessWidget {
+class VisitantesScreen extends StatelessWidget {
   final String id;
 
-  const CarrosMoradorScreen({Key? key, required this.id}) : super(key: key);
+  const VisitantesScreen({Key? key, required this.id}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Carros'),
+        title: const Text('Visitantes'),
       ),
-      body: CarrosList(id: id),
+      body: VisitantesList(id: id,),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
           showDialog(
             context: context,
             builder: (context) {
-              String newModelo = '';
-              String newMarca = '';
-              String newPlaca = '';
+              String newName = '';
+              String newCar = '';
+              String newPlate = '';
 
               return AlertDialog(
-                title: const Text('Adicionar Carro'),
+                title: const Text('Adicionar Visitante'),
                 content: SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       TextFormField(
                         onChanged: (value) {
-                          newModelo = value;
+                          newName = value;
                         },
                         decoration: const InputDecoration(
-                          labelText: 'Modelo',
+                          labelText: 'Nome',
                         ),
                       ),
                       TextFormField(
                         onChanged: (value) {
-                          newMarca = value;
+                          newCar = value;
                         },
                         decoration: const InputDecoration(
-                          labelText: 'Marca',
+                          labelText: 'Carro',
                         ),
                       ),
                       TextFormField(
                         inputFormatters: [PlacaVeiculoInputFormatter()],
                         onChanged: (value) {
-                          newPlaca = value;
+                          newPlate = value;
                         },
                         decoration: const InputDecoration(
                           labelText: 'Placa',
@@ -68,17 +68,17 @@ class CarrosMoradorScreen extends StatelessWidget {
                   ElevatedButton(
                     child: const Text('Adicionar'),
                     onPressed: () {
-                      if (newModelo.isNotEmpty &&
-                          newMarca.isNotEmpty &&
-                          newPlaca.isNotEmpty) {
+                      if (newName.isNotEmpty &&
+                          newCar.isNotEmpty &&
+                          newPlate.isNotEmpty) {
                         FirebaseFirestore.instance
                             .collection('usuarios')
                             .doc(id)
-                            .collection('carros')
+                            .collection('visitantes')
                             .add({
-                          'modelo': newModelo,
-                          'marca': newMarca,
-                          'placa': newPlaca,
+                          'nome': newName,
+                          'carro': newCar,
+                          'placa': newPlate,
                         });
 
                         Navigator.pop(context);
@@ -115,10 +115,11 @@ class CarrosMoradorScreen extends StatelessWidget {
   }
 }
 
-class CarrosList extends StatelessWidget {
+class VisitantesList extends StatelessWidget {
+  
   final String id;
 
-  const CarrosList({Key? key, required this.id}) : super(key: key);
+  const VisitantesList({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -126,31 +127,32 @@ class CarrosList extends StatelessWidget {
       stream: FirebaseFirestore.instance
           .collection('usuarios')
           .doc(id)
-          .collection('carros')
+          .collection('visitantes')
           .snapshots(),
-      builder: (context, carrosSnapshot) {
-        if (!carrosSnapshot.hasData) {
+      builder: (context, visitantesSnapshot) {
+        if (!visitantesSnapshot.hasData) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         }
 
-        List<DocumentSnapshot> carros = carrosSnapshot.data!.docs;
+        List<DocumentSnapshot> visitantes = visitantesSnapshot.data!.docs;
 
         return ListView.builder(
-          itemCount: carros.length,
+          itemCount: visitantes.length,
           itemBuilder: (context, index) {
-            final carro = carros[index];
-            final modelo = carro['modelo'];
-            final marca = carro['marca'];
-            final placa = carro['placa'];
+            final visitante = visitantes[index];
+            final nome = visitante['nome'];
+            final carro = visitante['carro'];
+            final placa = visitante['placa'];
 
             return ListTile(
-              leading: const Icon(Icons.directions_car),
-              title: Text(modelo),
+              leading: const Icon(Icons.person),
+              title: Text(nome),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [ Text('Marca: $marca'),
+                children: [
+                  Text('Carro: $carro'),
                   Text('Placa: $placa'),
                 ],
               ),
@@ -160,8 +162,8 @@ class CarrosList extends StatelessWidget {
                   FirebaseFirestore.instance
                       .collection('usuarios')
                       .doc(id)
-                      .collection('carros')
-                      .doc(carro.id)
+                      .collection('visitantes')
+                      .doc(visitante.id)
                       .delete();
                 },
               ),
@@ -172,3 +174,4 @@ class CarrosList extends StatelessWidget {
     );
   }
 }
+
