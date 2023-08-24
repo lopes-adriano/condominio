@@ -5,6 +5,10 @@ import 'package:condominio/screens/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
+import 'package:condominio/visitantes_condominio/views/meus_visitantes_list.dart';
+import 'package:condominio/visitantes_condominio/views/visitante_form.dart';
+import 'package:condominio/veiculos_condominio/views/meus_veiculos_list.dart';
+import 'package:condominio/veiculos_condominio/views/veiculo_form.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,6 +36,10 @@ class MainApp extends StatelessWidget {
         '/carros_morador': (context) => const CarrosMoradorScreen(
               id: '6Ox9RRJiSfPgJyqalV2F',
             ),
+        '/meus_visitantes': (context) => const MeusVisitantesList(),
+        '/visitanteForm': (context) => VisitanteForm(),
+        '/meus_veiculos': (context) => const MeusVeiculosList(),
+        'veiculoForm': (context) => VeiculoForm(),
       },
     );
   }
